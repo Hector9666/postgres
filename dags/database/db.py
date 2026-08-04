@@ -12,11 +12,12 @@ if IS_INSIDE_DOCKER:
     DB_HOST = "postgres"
     DB_PORT = 5432
 else:
-    # Настройки для локального ПК (внешние)
+    # Настройки для вашего локального ПК (внешние)
     DB_HOST = os.getenv("POSTGRES_HOST", "localhost")
     DB_PORT = int(os.getenv("POSTGRES_PORT", 5434))
 
 DB_USER = os.getenv("POSTGRES_USER", "postgres")
+# Будьте внимательны: в вашем .env написано POSTGRES_PW или POSTGRES_PASSWORD?
 DB_PASS = os.getenv("POSTGRES_PW") or "pgpass"
 DB_NAME = os.getenv("POSTGRES_DB", "postgres")
 
@@ -32,7 +33,7 @@ DB_URL = URL.create(
      port=DB_PORT,
 )
 
-engine = create_engine(DB_URL, echo=True)
+engine = create_engine(DB_URL, echo=False)
 
 
 def check_connection():

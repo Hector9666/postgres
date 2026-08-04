@@ -13,7 +13,7 @@ from sqlalchemy import (
     Index
 )
 from datetime import datetime
-from db import engine
+from database.db import engine
 
 
 metadata = MetaData()
