@@ -117,7 +117,7 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PW}
       - POSTGRES_DB=${POSTGRES_DB} #optional (specify default database instead of $POSTGRES_DB)
-      - POSTGRES_INITDB_ARGS= "--data-checksums"
+      - POSTGRES_INITDB_ARGS="--data-checksums"
     ports:
       - "5434:5432"
     volumes:
@@ -149,7 +149,7 @@ services:
     ports:
       - "8888:8080"
     healthcheck:
-      test: ["CMD", "curl", "--fail", "http://localhost:8888/api/v2/monitor/health"]
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/api/v2/monitor/health"]
       interval: 30s
       timeout: 10s
       retries: 5
