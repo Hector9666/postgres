@@ -11,9 +11,7 @@ import pendulum
 # sys.path.append(os.path.dirname(__file__))
 
 # Импортируем задачи из адаптированных модулей
-import extract as ext
-import transform as trf
-import load_core as ld
+from src import load_core as ld, transform as trf, extract as ext
 from database.init_database import init_db
 
 default_args = {
