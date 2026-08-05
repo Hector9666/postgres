@@ -23,7 +23,7 @@ default_args = {
 @dag(
         dag_id="taxi_etl_medallion",
         default_args=default_args,
-        schedule="@daily",
+        schedule=None,
         catchup=False,
         max_active_tasks=3,   # Одновременно в системе будет работать максимум 3 квадратика
         max_active_runs=1,    # Если запустится ручной и автоматический ран, они будут стоять в очереди и выполняться СТРОГО по очереди, а не вместе
