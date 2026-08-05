@@ -4,7 +4,7 @@ import pandas as pd
 
 # Внутри контейнера Airflow папка с вашими сырыми CSV-файлами должна быть доступна.
 # Например, можно положить их в папку dags/data/raw/
-RAW_DATA_DIR = os.path.join(os.path.dirname(__file__), "data", "raw")
+RAW_DATA_DIR = os.path.join(os.path.dirname(__file__), "../dags/data", "raw")
 # Папка для промежуточных (staging) файлов перед трансформацией
 STAGE_DIR = "/tmp/airflow_staging"
 
