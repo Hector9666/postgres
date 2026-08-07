@@ -10,9 +10,10 @@ from sqlalchemy import (
     NUMERIC,
     CheckConstraint,
     ForeignKey,
-    Index
+    Index,
+    text
 )
-from datetime import datetime
+
 from db import engine
 
 
@@ -28,7 +29,7 @@ customers = Table(
     Column("name", Text, nullable=False),
     Column("phone", Text),
     Column("email", Text),
-    Column("created_at", TIMESTAMP(timezone=True), default=datetime.now, nullable=False),
+    Column("created_at", TIMESTAMP(timezone=True), server_default=text("CURRENT_TIMESTAMP"), nullable=False),
 )
 
 drivers = Table(
@@ -39,7 +40,7 @@ drivers = Table(
     Column("name", Text, nullable=False),
     Column("phone", Text),
     Column("vehicle_number", Text, nullable=False, unique=True),
-    Column("created_at", TIMESTAMP(timezone=True), default=datetime.now, nullable=False),
+    Column("created_at", TIMESTAMP(timezone=True), server_default=text("CURRENT_TIMESTAMP"), nullable=False),
 )
 
 locations = Table(
@@ -57,10 +58,10 @@ tariffs = Table(
     Column("tariff_id", Integer, Identity(always=True), primary_key=True),
     Column("name", Text, nullable=False, unique=True),
     Column("base_price", NUMERIC(precision=10, scale=2),
-           CheckConstraint("base_price >= 0"), nullable=False, default=300),
+           CheckConstraint("base_price >= 0"), nullable=False, server_defaul="300"),
     Column("per_km", NUMERIC(precision=10, scale=2),
-           CheckConstraint("per_km >= 0"), nullable=False, default=0),
-    Column("created_at", TIMESTAMP(timezone=True), default=datetime.now),
+           CheckConstraint("per_km >= 0"), nullable=False, server_defaul="0"),
+    Column("created_at", TIMESTAMP(timezone=True), server_default=text("CURRENT_TIMESTAMP")),
 )
 
 order_statuses = Table(
@@ -91,10 +92,10 @@ orders = Table(
            ForeignKey("tariffs.tariff_id", name="fk_tariff_id"), nullable=False),
     Column("price", NUMERIC(precision=10, scale=2), CheckConstraint("price >= 0"), nullable=False),
     Column("distance_km", NUMERIC(precision=7, scale=3), CheckConstraint("distance_km >= 0"), nullable=False),
-    Column("created_at", TIMESTAMP(timezone=True), nullable=False, default=datetime.now),
+    Column("created_at", TIMESTAMP(timezone=True), nullable=False, server_default=text("CURRENT_TIMESTAMP")),
     Column("delivered_at", TIMESTAMP(timezone=True)),
     Column("current_status", Integer,
-           ForeignKey("order_statuses.status_id", name="fk_status_id"), default=1),
+           ForeignKey("order_statuses.status_id", name="fk_status_id"), server_default="1"),
     Index("idx_customer_id", "customer_id"),
     Index("idx_driver_id", "driver_id"),
     Index("idx_created_at", "created_at"),
