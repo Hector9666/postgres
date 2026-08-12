@@ -14,7 +14,7 @@ from sqlalchemy import (
     text
 )
 
-from db import engine
+from database.db import engine
 
 
 metadata = MetaData()
