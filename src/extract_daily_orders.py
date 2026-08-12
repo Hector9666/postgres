@@ -1,4 +1,4 @@
-# extract.py
+# extract_daily_orders.py
 import os
 import pandas as pd
 
@@ -23,10 +23,8 @@ def load_csv(filename: str) -> pd.DataFrame:
 
 def save_to_bronze(df: pd.DataFrame, date_str: str, bronze_filename: str) -> str:
     """Сохраняет DataFrame на диск в формате Parquet."""
-    bronze_output_path = os.path.join(BRONZE_DIR, date_str)
-    os.makedirs(bronze_output_path, exist_ok=True)
-    bronze_filepath = os.path.join(bronze_output_path, bronze_filename)
-
+    bronze_filepath = os.path.join(BRONZE_DIR, date_str, bronze_filename)
+    os.makedirs(os.path.dirname(bronze_filepath), exist_ok=True)
 
     # Сохраняем в бинарный формат Parquet
     df.to_parquet(bronze_filepath, index=False)
@@ -61,7 +59,7 @@ def extract_orders(date_str) -> str:
         raise ValueError(f"В orders_{date_str}.csv отсутствуют колонки: {missing}")
 
     # Вместо return df мы сохраняем его на диск
-    return save_to_bronze(df, date_str, "orders.parquet")
+    return save_to_bronze(df, date_str, f"bronze_orders_{date_str}.parquet")
 
 # ============================
 # Проверка
