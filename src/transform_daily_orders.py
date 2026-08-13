@@ -63,4 +63,6 @@ def transform_daily_orders(date_str: str):
 # ============================
 
 if __name__ == "__main__":
-    transform_daily_orders("2026_08_05")
+    path = transform_daily_orders(date_str="2026_08_11")
+    print(path)
+

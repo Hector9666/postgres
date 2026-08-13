@@ -62,5 +62,6 @@ def extract_orders(date_str) -> str:
 # ============================
 
 if __name__ == "__main__":
-    extract_orders("2026_08_05")
+    path = extract_orders(date_str="2026_08_11")
+    print(path)
 

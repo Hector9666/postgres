@@ -157,7 +157,7 @@ def build_orders_sla_mart_task():
         print("🟢 Витрина SLA успешно обновлена!")
 
 if __name__ == "__main__":
-    load_daily_orders("2026-08-05")
+    load_daily_orders("2026_08_11")
     build_drivers_efficiency_mart_task()
     build_customer_analytics_mart_task()
     build_orders_sla_mart_task()
