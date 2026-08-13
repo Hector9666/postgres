@@ -58,9 +58,9 @@ tariffs = Table(
     Column("tariff_id", Integer, Identity(always=True), primary_key=True),
     Column("name", Text, nullable=False, unique=True),
     Column("base_price", NUMERIC(precision=10, scale=2),
-           CheckConstraint("base_price >= 0"), nullable=False, server_defaul="300"),
+           CheckConstraint("base_price >= 0"), nullable=False, server_default="300.00"),
     Column("per_km", NUMERIC(precision=10, scale=2),
-           CheckConstraint("per_km >= 0"), nullable=False, server_defaul="0"),
+           CheckConstraint("per_km >= 0"), nullable=False, server_default="0.00"),
     Column("created_at", TIMESTAMP(timezone=True), server_default=text("CURRENT_TIMESTAMP")),
 )
 
