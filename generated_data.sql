@@ -1,5 +1,5 @@
 -- 1. Переключаемся на схему orders
-SET search_path TO orders;
+-- SET search_path TO orders;
 
 -- 2. Очищаем таблицы, если в них что-то было (с каскадным удалением зависимостей)
 TRUNCATE order_events, orders, customers, drivers, locations, tariffs, order_statuses RESTART IDENTITY CASCADE;
