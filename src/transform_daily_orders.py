@@ -1,4 +1,4 @@
-# transform.py
+# transform_daily_orders.py
 import os
 import pandas as pd
 
@@ -7,7 +7,7 @@ SILVER_DIR = "data/silver/orders"
 
 
 def load_from_bronze(date_str: str, filename: str) -> pd.DataFrame:
-    """Читает файл из стейджинга (работает с любым форматом, который передали)."""
+    """Читает файл из слоя Bronze."""
     path = os.path.join(BRONZE_DIR, date_str, filename)
 
     if not os.path.exists(path):
@@ -35,7 +35,7 @@ def transform_daily_orders(date_str: str):
     # Читаем то, что подготовил extract_daily_orders.py
     df = load_from_bronze(date_str,f"bronze_orders_{date_str}.parquet")
 
-    # Ваша бизнес-логика трансформации (без изменений)
+    # Бизнес-логика трансформации
     df = df.drop_duplicates(subset=["external_order_id"])
     df["price"] = pd.to_numeric(df["price"], errors="coerce")
     df["distance_km"] = pd.to_numeric(df["distance_km"], errors="coerce")
@@ -54,7 +54,7 @@ def transform_daily_orders(date_str: str):
 
     df = df.dropna(subset=["external_order_id", "created_at", "price"])
 
-    # Сохраняем результат для load.py
+    # Сохраняем результат для load_daily_orders.py
     return save_to_silver(df, date_str, f"silver_orders_{date_str}.parquet")
 
 

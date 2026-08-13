@@ -2,10 +2,6 @@
 import os
 import pandas as pd
 
-# Внутри контейнера Airflow папка с вашими сырыми CSV-файлами должна быть доступна.
-# Например, можно положить их в папку dags/data/raw/
-# RAW_DATA_DIR = "/opt/airflow/data/raw/daily_orders"
-# BRONZE_DIR = "opt/airflow/data/bronze/orders"
 RAW_DATA_DIR = "data/raw/daily_orders"
 BRONZE_DIR = "data/bronze/orders"
 
@@ -36,7 +32,7 @@ def save_to_bronze(df: pd.DataFrame, date_str: str, bronze_filename: str) -> str
 # Заказы
 # ============================
 def extract_orders(date_str) -> str:
-    """Загружает сырые данные заказов и сохраняет в стейджинг."""
+    """Загружает сырые данные заказов и сохраняет в слое Bronze."""
     df = load_csv(f"orders_{date_str}.csv")
 
     if df.empty:
@@ -58,7 +54,7 @@ def extract_orders(date_str) -> str:
     if missing:
         raise ValueError(f"В orders_{date_str}.csv отсутствуют колонки: {missing}")
 
-    # Вместо return df мы сохраняем его на диск
+    # Cохраняем DataFrame на диск.
     return save_to_bronze(df, date_str, f"bronze_orders_{date_str}.parquet")
 
 # ============================

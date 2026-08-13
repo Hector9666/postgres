@@ -1,4 +1,4 @@
-# load_core.py
+# load_daily_orders.py
 import os
 import pandas as pd
 from database.db import engine
@@ -7,8 +7,8 @@ from sqlalchemy.dialects.postgresql import insert as pg_insert
 from database.models import (
     customers, drivers, locations, tariffs, orders
 )
-from src.transform_daily_orders import SILVER_DIR
 
+SILVER_DIR = "data/silver/orders"
 
 def load_from_silver(date_str: str, filename: str) -> pd.DataFrame:
     """Вспомогательная функция для чтения чистых данных."""
@@ -26,7 +26,7 @@ def load_from_silver(date_str: str, filename: str) -> pd.DataFrame:
 def load_daily_orders(date_str: str):
     df = load_from_silver(date_str,f"silver_orders_{date_str}.parquet")
 
-    # Логика маппинга (остается БЕЗ изменений)
+    # Логика маппинга
     with engine.connect() as conn:
         customers_dict = dict(conn.execute(select(customers.c.external_id, customers.c.customer_id)).tuples().all())
         drivers_dict = dict(conn.execute(select(drivers.c.external_id, drivers.c.driver_id)).tuples().all())

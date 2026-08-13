@@ -1,9 +1,4 @@
-# import os
-# import sys
-# from datetime import datetime, timedelta
-# from airflow import DAG
-# from airflow.providers.standard.operators.python import PythonOperator
-
+#taxi_medalion_pipline.py
 from airflow.sdk import dag, task
 import pendulum
 

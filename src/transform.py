@@ -35,7 +35,7 @@ def process_orders_task():
     # Читаем то, что подготовил extract.py
     df = load_from_staging("stage_orders.parquet")
 
-    # Ваша бизнес-логика трансформации (без изменений)
+    # Бизнес-логика трансформации
     df = df.drop_duplicates(subset=["external_order_id"])
     df["price"] = pd.to_numeric(df["price"], errors="coerce")
     df["distance_km"] = pd.to_numeric(df["distance_km"], errors="coerce")

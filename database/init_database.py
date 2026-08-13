@@ -1,3 +1,4 @@
+# init_database.py
 from database.models import metadata
 from database.db import engine
 

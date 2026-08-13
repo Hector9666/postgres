@@ -33,7 +33,7 @@ SELECT
     '2026-01-01 00:00:00+00'::timestamp with time zone + random() * (interval '45 days') AS created_at
 FROM generate_series(1, 10000) AS i;
 
--- 6. Генерируем 2 000 водителей
+-- 6. Генерируем 10 000 водителей
 INSERT INTO drivers (external_id, name, phone, vehicle_number, created_at)
 SELECT
     'drv_ext_' || i AS external_id,
